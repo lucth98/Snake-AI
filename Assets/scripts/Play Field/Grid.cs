@@ -51,6 +51,11 @@ public class Grid : MonoBehaviour
         camera.backgroundColor= Color.white;    
     }
 
+    public Tile getTile(int x ,int y)
+    {
+        return field[y, x];
+    }
+
     // Start is called before the first frame update
     void Start()
     {

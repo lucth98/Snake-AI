@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-
+    private SnakePart snake { get; set; }
+    private Token token { get; set; }
     public void setCollor(bool type)
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();

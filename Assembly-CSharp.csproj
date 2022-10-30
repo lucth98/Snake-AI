@@ -62,6 +62,8 @@
     <Compile Include="Assets\scripts\Collectables\Token.cs" />
     <Compile Include="Assets\scripts\Play Field\Tile.cs" />
     <Compile Include="Assets\scripts\Collectables\IncreaseSizeToken.cs" />
+    <Compile Include="Assets\scripts\Snake\SnakeHead.cs" />
+    <Compile Include="Assets\scripts\Snake\SnakeBody.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
