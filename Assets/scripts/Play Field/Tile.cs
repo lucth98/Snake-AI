@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    private SnakePart snake { get; set; }
-    private Token token { get; set; }
+    public SnakePart snake { get; set; }
+    public Token token { get; set; }
     public void setCollor(bool type)
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
@@ -18,6 +18,13 @@ public class Tile : MonoBehaviour
         {
             spriteRenderer.color = new Color32(137, 250, 188, 255);
         }
+    }
+
+
+
+    public Vector2 getPostion()
+    {
+        return transform.position;
     }
 
     // Start is called before the first frame update

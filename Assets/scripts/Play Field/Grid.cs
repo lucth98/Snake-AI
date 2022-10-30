@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Grid : MonoBehaviour
 {
+    public Snake snake { get; private set; }
 
     private int height = 60;
 
@@ -42,11 +43,11 @@ public class Grid : MonoBehaviour
         camera.transform.position = new Vector3(((float)with) / 2, ((float)height) / 2,-1);
         if (height >= with)
         {
-            camera.orthographicSize = (float)height / 2;
+            camera.orthographicSize = (float)height / 2 +2;
         }
         else
         {
-            camera.orthographicSize = (float)with / 2;
+            camera.orthographicSize = (float)with / 2+2;
         }
         camera.backgroundColor= Color.white;    
     }
@@ -64,8 +65,18 @@ public class Grid : MonoBehaviour
         moveCamera();
         drawGrid();
 
+       initSnake();
+
     }
 
+    private void initSnake()
+    {
+        snake = new Snake();
+        snake.init(with / 2, height / 2, this);
+
+        //ToDO RandPos
+
+    }
     // Update is called once per frame
     void Update()
     {
