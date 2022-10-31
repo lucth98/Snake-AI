@@ -25,10 +25,16 @@ public class SnakePart : MonoBehaviour
 
     snakeMoveFunction snakeMove;
 
+    private bool addElemnt = false;
 
-    public void turn(bool turnRight)
+    public bool turnRequiret = false;
+
+    private bool turnType;
+    private void makeTurn()
     {
-        if (turnRight)
+
+        Debug.Log("Turn " + turnType + " !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        if (turnType)
         {
             switch (direction)
             {
@@ -71,8 +77,15 @@ public class SnakePart : MonoBehaviour
                     break;
             }
         }
-
-        nextElement.informOfTurn(positonTile, turnRight);
+        if (nextElement != null)
+        {
+            nextElement.informOfTurn(positonTile, turnType);
+        }
+    }
+    public void turn(bool turnRight)
+    {
+        turnRequiret = true;
+        turnType = turnRight;
     }
 
     public void informOfTurn(Tile positionOfTurn, bool turnRight)
@@ -85,13 +98,18 @@ public class SnakePart : MonoBehaviour
     private void addBodyToCordinates(int x, int y)
     {
         //TODo shau ob neues Body Part im Spielfelt liegt
-        SnakeBody newBodyPart = Instantiate(snakeBodypre, new Vector2(x, y), Quaternion.identity);
+        SnakeBody newBodyPart = Instantiate(snakeBodypre, new Vector3(x, y, -2), Quaternion.identity);
+
+        nextElement = newBodyPart;  
 
         newBodyPart.x = x;
         newBodyPart.y = y;
 
 
         newBodyPart.grid = grid;
+        newBodyPart.direction = direction;
+        newBodyPart.init();
+        newBodyPart.moveSnakePart();
 
         try
         {
@@ -103,8 +121,7 @@ public class SnakePart : MonoBehaviour
         }
     }
 
-
-    public void addBodyPart()
+    private void addPart()
     {
         if (nextElement != null)
         {
@@ -133,18 +150,14 @@ public class SnakePart : MonoBehaviour
         }
     }
 
+
+    public void addBodyPart()
+    {
+        addElemnt = true;
+    }
+
     public void moveSnakePart()
     {
-        if (nextElement != null)
-        {
-            nextElement.moveSnakePart();
-        }
-        else
-        {
-
-            //in callback: wenn Bewegung fertig dann -> Schlange kopf wieder in bewegung setzen
-        }
-
         int targedX = x;
         int targedY = y;
 
@@ -161,15 +174,26 @@ public class SnakePart : MonoBehaviour
             case Direction.right:
                 targedX++;
                 break;
-
+            //hjks
             case Direction.left:
-                targedY--;
+                targedX--;
                 break;
         }
+   
 
         //ToDo schau ob ziel im Spielfeld liegt
         //ToDo collisionsabfrage
         snakeMove.moveToSmoothly(new Vector2(targedX, targedY));
+
+        //if (nextElement != null)
+        //{
+        //    nextElement.moveSnakePart();
+        //}
+        //else
+        //{
+
+        //    //in callback: wenn Bewegung fertig dann -> Schlange kopf wieder in bewegung setzen
+        //}
     }
 
 
@@ -187,26 +211,52 @@ public class SnakePart : MonoBehaviour
         {
 
         }
-
-        Vector2 turnPos = turnTile.getPostion();
-
-        if (turnPos.x == this.x && turnPos.y == this.y)  //check ob sich im neuen Feld eine Trhung stafinden soll
+        if (turnTile != null)
         {
-            turn(nextTurn);
+            Vector2 turnPos = turnTile.getPostion();
+
+            if (turnPos.x == this.x && turnPos.y == this.y)  //check ob sich im neuen Feld eine Trhung stafinden soll
+            {
+                turn(nextTurn);
+            }
+
+
+        }
+      
+
+        if (addElemnt)
+        {
+            addElemnt = false;
+            addPart();
         }
 
-        if (nextElement == null)
+        if (turnRequiret)
         {
-            grid.snake.move();// wenn alle elemte sich begt haben muss die nechtste bewegung beim kopf starten
+            turnRequiret = false;
+            makeTurn();
         }
+
+        moveSnakePart();
+
+        //if (nextElement == null)
+        //{
+        //    grid.snake.move();// wenn alle elemte sich begt haben muss die nechtste bewegung beim kopf starten
+        //}
+    }
+
+    public void init()
+    {
+        this.x = (int)transform.position.x;
+        this.y = (int)transform.position.y;
+        snakeBodypre = Resources.Load<SnakeBody>("SnakeBodyObject");
+        snakeMove = GetComponent<snakeMoveFunction>();
+        snakeMove.snakePart = this;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        snakeBodypre = Resources.Load<SnakeBody>("SnakeBodyObject");
-        snakeMove = GetComponent<snakeMoveFunction>();
-        snakeMove.SnakePart = this;
+
     }
 
     // Update is called once per frame

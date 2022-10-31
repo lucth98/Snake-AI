@@ -24,8 +24,9 @@ public class Snake : MonoBehaviour
         snake[0].moveSnakePart();
     }
 
-    private void turn()
+    public void turn()
     {
+        Debug.Log("Turn in Snake" );
         if (Input.GetKeyDown(buttonTurnLeft))
         {
             snake[0].turn(false);
@@ -33,6 +34,12 @@ public class Snake : MonoBehaviour
         if (Input.GetKeyDown(buttonTurnRight))
         {
             snake[0].turn(true);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            addSnakePart(); 
 
         }
     }
@@ -50,25 +57,30 @@ public class Snake : MonoBehaviour
 
     public void init(int x, int y, Grid grid)
     {
-        SnakeHead head = Instantiate(snakeHeadpre, new Vector2(x, y), Quaternion.identity);
+        snakeHeadpre = Resources.Load<SnakeHead>("SnakeHeadObject");
+        SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y,-2), Quaternion.identity);
         head.direction = SnakePart.Direction.right;
         head.grid = grid;
+        head.init();
         snake.Add(head);
 
+
         this.Grid = grid;
+
+        move(); 
     }
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        snakeHeadpre = Resources.Load<SnakeHead>("SnakeHeadObject");
-
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 }

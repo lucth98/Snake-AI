@@ -20,7 +20,7 @@ public class Grid : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                var newTile = Instantiate(tile, new Vector2(x, y), Quaternion.identity);
+                var newTile = Instantiate(tile, new Vector3(x, y,1), Quaternion.identity);
 
                 newTile.name = "Tile Pos: X=" + x + " Y=" + y;
 
@@ -40,7 +40,7 @@ public class Grid : MonoBehaviour
     private void moveCamera()
     {
         Camera camera = Camera.main;
-        camera.transform.position = new Vector3(((float)with) / 2, ((float)height) / 2,-1);
+        camera.transform.position = new Vector3(((float)with) / 2, ((float)height) / 2,-10);
         if (height >= with)
         {
             camera.orthographicSize = (float)height / 2 +2;
@@ -80,6 +80,6 @@ public class Grid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        snake.turn();
     }
 }
