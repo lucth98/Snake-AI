@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Token : MonoBehaviour
 {
+    public Grid grid { get;  set; }
+    public Tile tile { get; set; }
     public virtual void action(Snake snake)
     {
 

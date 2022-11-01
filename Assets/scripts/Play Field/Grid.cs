@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
 public class Grid : MonoBehaviour
@@ -14,13 +15,15 @@ public class Grid : MonoBehaviour
     private Tile tile;
 
     private Tile[,] field;
+
+    private IncreaseSizeToken increase;
     public void drawGrid()
     {
         for (int x = 0; x < with; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                var newTile = Instantiate(tile, new Vector3(x, y,1), Quaternion.identity);
+                var newTile = Instantiate(tile, new Vector3(x, y, 1), Quaternion.identity);
 
                 newTile.name = "Tile Pos: X=" + x + " Y=" + y;
 
@@ -33,7 +36,7 @@ public class Grid : MonoBehaviour
 
     private void makeBarres()
     {
-        for(int i = 0; i < with; i++)
+        for (int i = 0; i < with; i++)
         {
             getTile(i, 0).makeBarrier();
         }
@@ -43,11 +46,11 @@ public class Grid : MonoBehaviour
         }
         for (int i = 0; i < with; i++)
         {
-            getTile(i, height-1).makeBarrier();
+            getTile(i, height - 1).makeBarrier();
         }
         for (int i = 0; i < with; i++)
         {
-            getTile(with-1, i).makeBarrier();
+            getTile(with - 1, i).makeBarrier();
         }
     }
 
@@ -60,19 +63,19 @@ public class Grid : MonoBehaviour
     private void moveCamera()
     {
         Camera camera = Camera.main;
-        camera.transform.position = new Vector3(((float)with) / 2, ((float)height) / 2,-10);
+        camera.transform.position = new Vector3(((float)with) / 2, ((float)height) / 2, -10);
         if (height >= with)
         {
-            camera.orthographicSize = (float)height / 2 +2;
+            camera.orthographicSize = (float)height / 2 + 2;
         }
         else
         {
-            camera.orthographicSize = (float)with / 2+2;
+            camera.orthographicSize = (float)with / 2 + 2;
         }
-        camera.backgroundColor= Color.white;    
+        camera.backgroundColor = Color.white;
     }
 
-    public Tile getTile(int x ,int y)
+    public Tile getTile(int x, int y)
     {
         return field[y, x];
     }
@@ -86,7 +89,9 @@ public class Grid : MonoBehaviour
         drawGrid();
         makeBarres();
 
-       initSnake();
+        addTokens();
+
+        initSnake();
 
     }
 
@@ -103,4 +108,42 @@ public class Grid : MonoBehaviour
     {
         snake.turn();
     }
+
+
+
+    public void addIncreaseToken()
+    {
+        Debug.Log("add increse Token");
+        System.Random random = new System.Random();
+
+        int tokenX = 0;
+        int tokenY = 0;
+
+        Tile tokenTile;
+        do
+        {
+            tokenX = random.Next(1, with - 2);
+            tokenY = random.Next(1, height - 2);
+
+            tokenTile = getTile(tokenX, tokenY);
+        } while (tokenTile.token != null);
+
+
+        IncreaseSizeToken newToken = Instantiate(increase, new Vector3(tokenX, tokenY, -1), Quaternion.identity);
+        newToken.grid = this;
+        tokenTile.token = newToken;
+        newToken.tile = tokenTile;
+    }
+
+    private void addTokens()
+    {
+        increase = Resources.Load<IncreaseSizeToken>("IncreasSizeObject");
+        addIncreaseToken();
+        addIncreaseToken();
+        addIncreaseToken();
+        addIncreaseToken();
+
+    }
+
+
 }
