@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class IncreaseSizeToken : Token
 {
+    public override void action(Snake snake)
+    {
+        snake.addSnakePart();
+    }
     // Start is called before the first frame update
     void Start()
     {

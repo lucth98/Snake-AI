@@ -9,6 +9,7 @@ public class SnakePart : MonoBehaviour
     public int y { get; set; }
     public SnakePart nextElement { get; set; }
     public Direction direction { get; set; }
+    public Snake snake { get; set; }
     public enum Direction
     {
         up, down, left, right
@@ -30,6 +31,9 @@ public class SnakePart : MonoBehaviour
     public bool turnRequiret = false;
 
     private bool turnType;
+
+
+
     private void makeTurn()
     {
 
@@ -100,7 +104,7 @@ public class SnakePart : MonoBehaviour
         //TODo shau ob neues Body Part im Spielfelt liegt
         SnakeBody newBodyPart = Instantiate(snakeBodypre, new Vector3(x, y, -2), Quaternion.identity);
 
-        nextElement = newBodyPart;  
+        nextElement = newBodyPart;
 
         newBodyPart.x = x;
         newBodyPart.y = y;
@@ -108,6 +112,9 @@ public class SnakePart : MonoBehaviour
 
         newBodyPart.grid = grid;
         newBodyPart.direction = direction;
+        newBodyPart.snake=snake;
+
+
         newBodyPart.init();
         newBodyPart.moveSnakePart();
 
@@ -119,6 +126,7 @@ public class SnakePart : MonoBehaviour
         {
 
         }
+        snake.addPartToList(newBodyPart);
     }
 
     private void addPart()
@@ -179,10 +187,9 @@ public class SnakePart : MonoBehaviour
                 targedX--;
                 break;
         }
-   
 
-        //ToDo schau ob ziel im Spielfeld liegt
-        //ToDo collisionsabfrage
+
+
         snakeMove.moveToSmoothly(new Vector2(targedX, targedY));
 
         //if (nextElement != null)
@@ -196,6 +203,34 @@ public class SnakePart : MonoBehaviour
         //}
     }
 
+    public bool hasColidet()
+    {
+        bool result = false;
+        if (positonTile.isThisBarrier())
+        {
+            result = true;
+        }
+        if(positonTile.snake != null)
+        {
+            return true;
+        }
+        if(positonTile.token != null)
+        {
+            tokenAction(positonTile.token);
+        }
+
+        return result;
+    }
+
+    public virtual void tokenAction(Token token)
+    {
+
+    }
+
+    public virtual void collisionAction()
+    {
+
+    }
 
     public void movedToPositonCallBack(int newX, int newY)  //wird von snakemove gerufen wenn eine bewegug fertig ist
     {
@@ -204,7 +239,20 @@ public class SnakePart : MonoBehaviour
 
         try
         {
+            if (this.positonTile != null && this.positonTile.snake != null)
+            {
+                this.positonTile.snake = null;
+            }
             this.positonTile = grid.getTile(x, y);
+
+
+            //check collison
+            if (hasColidet())
+            {
+                collisionAction();
+            }
+
+
             positonTile.snake = this;
         }
         catch (Exception e)
@@ -222,7 +270,7 @@ public class SnakePart : MonoBehaviour
 
 
         }
-      
+
 
         if (addElemnt)
         {
@@ -236,12 +284,19 @@ public class SnakePart : MonoBehaviour
             makeTurn();
         }
 
+    
+
         moveSnakePart();
 
         //if (nextElement == null)
         //{
         //    grid.snake.move();// wenn alle elemte sich begt haben muss die nechtste bewegung beim kopf starten
         //}
+    }
+
+    public void changeSpeed(float newSpeed)
+    {
+        snakeMove.speed = newSpeed;
     }
 
     public void init()

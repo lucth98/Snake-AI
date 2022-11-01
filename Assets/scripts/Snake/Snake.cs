@@ -42,8 +42,18 @@ public class Snake : MonoBehaviour
             addSnakePart(); 
 
         }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            changeSpeed(0f);
+
+        }
     }
 
+    public void addPartToList(SnakePart part)
+    {
+        snake.Add(part);
+    }
     public void addSnakePart()
     {
         snake[0].addBodyPart();
@@ -54,6 +64,14 @@ public class Snake : MonoBehaviour
         snake.Add(body);
     }
 
+    public void changeSpeed(float newSpeed)
+    {
+        foreach(SnakePart b in snake)
+        {
+            Debug.Log("change Speed" +"length= "+snake.Count);
+            b.changeSpeed(newSpeed);
+        }
+    }
 
     public void init(int x, int y, Grid grid)
     {
@@ -61,6 +79,7 @@ public class Snake : MonoBehaviour
         SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y,-2), Quaternion.identity);
         head.direction = SnakePart.Direction.right;
         head.grid = grid;
+        head.snake = this;
         head.init();
         snake.Add(head);
 
