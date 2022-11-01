@@ -31,6 +31,26 @@ public class Grid : MonoBehaviour
         }
     }
 
+    private void makeBarres()
+    {
+        for(int i = 0; i < with; i++)
+        {
+            getTile(i, 0).makeBarrier();
+        }
+        for (int i = 0; i < height; i++)
+        {
+            getTile(0, i).makeBarrier();
+        }
+        for (int i = 0; i < with; i++)
+        {
+            getTile(i, height-1).makeBarrier();
+        }
+        for (int i = 0; i < with; i++)
+        {
+            getTile(with-1, i).makeBarrier();
+        }
+    }
+
     public void setSize(int with, int height)
     {
         this.with = with;
@@ -64,6 +84,7 @@ public class Grid : MonoBehaviour
         field = new Tile[height, with];
         moveCamera();
         drawGrid();
+        makeBarres();
 
        initSnake();
 

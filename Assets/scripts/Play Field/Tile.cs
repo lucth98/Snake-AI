@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    private bool isBarrier = false;
     public SnakePart snake { get; set; }
     public Token token { get; set; }
     public void setCollor(bool type)
@@ -12,7 +13,7 @@ public class Tile : MonoBehaviour
 
         if (type)
         {
-            spriteRenderer.color = new Color32(62,250,147, 255);
+            spriteRenderer.color = new Color32(62, 250, 147, 255);
         }
         else
         {
@@ -20,6 +21,17 @@ public class Tile : MonoBehaviour
         }
     }
 
+    public void makeBarrier()
+    {
+        isBarrier = true;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = Color.black;
+    }
+
+    public bool isThisBarrier()
+    {
+        return isBarrier;
+    }
 
 
     public Vector2 getPostion()
