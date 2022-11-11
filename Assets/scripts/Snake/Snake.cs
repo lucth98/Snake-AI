@@ -26,7 +26,11 @@ public class Snake : MonoBehaviour
 
     public void turn()
     {
-        Debug.Log("Turn in Snake" );
+        if (snake[0].turnRequiret)
+        {
+            return;
+        }
+      
         if (Input.GetKeyDown(buttonTurnLeft))
         {
             snake[0].turn(false);
@@ -80,6 +84,7 @@ public class Snake : MonoBehaviour
         head.direction = SnakePart.Direction.right;
         head.grid = grid;
         head.snake = this;
+
         head.init();
         snake.Add(head);
 

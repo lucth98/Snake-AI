@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class SnakePart : MonoBehaviour
 {
+
+
+
     public int x { get; set; }
     public int y { get; set; }
     public SnakePart nextElement { get; set; }
@@ -28,11 +31,13 @@ public class SnakePart : MonoBehaviour
 
     private bool addElemnt = false;
 
-    public bool turnRequiret = false;
+    public bool turnRequiret { get; private set; } = false;
 
     private bool turnType;
 
 
+
+    private List<SnakeTurn> turns = new List<SnakeTurn>(); //ToDo
 
     private void makeTurn()
     {
@@ -90,12 +95,38 @@ public class SnakePart : MonoBehaviour
     {
         turnRequiret = true;
         turnType = turnRight;
+
+
+
+
+        /*
+        SnakeTurn turn = new SnakeTurn();
+        turn.turnType = turnRight;
+
+
+        turns.Enqueue(turn);
+        */
     }
 
     public void informOfTurn(Tile positionOfTurn, bool turnRight)
     {
         this.nextTurn = turnRight;
         this.turnTile = positionOfTurn;
+
+
+
+        Debug.Log("inform of turn");
+
+        SnakeTurn newTurn =new SnakeTurn(); //weiter machen unfertig 
+        newTurn.turnType = turnRight; 
+        newTurn.positionOfTurn = positionOfTurn;    
+
+        this.turns.Add(newTurn);
+
+
+        Debug.Log(turns.Count);
+
+
     }
 
 
@@ -192,15 +223,7 @@ public class SnakePart : MonoBehaviour
 
         snakeMove.moveToSmoothly(new Vector2(targedX, targedY));
 
-        //if (nextElement != null)
-        //{
-        //    nextElement.moveSnakePart();
-        //}
-        //else
-        //{
-
-        //    //in callback: wenn Bewegung fertig dann -> Schlange kopf wieder in bewegung setzen
-        //}
+      
     }
 
     public bool hasColidet()
@@ -259,7 +282,10 @@ public class SnakePart : MonoBehaviour
         {
 
         }
-        if (turnTile != null)
+        
+
+          /*
+        if (turnTile != null) //drehcode weitergabe ohen liste
         {
             Vector2 turnPos = turnTile.getPostion();
 
@@ -268,6 +294,24 @@ public class SnakePart : MonoBehaviour
                 turn(nextTurn);
             }
 
+
+        }*/
+
+
+        if(turns.Count != 0 ) //drehcode weitergabe mit liste
+        {
+            Vector2 turnPos = turns[0].positionOfTurn.getPostion();
+            Debug.Log("make informet turn");
+
+            Debug.Log("Ziel:"+turnPos  + " pos"+x+" "+ y);
+            if (turnPos.x == this.x && turnPos.y == this.y)  //check ob sich im neuen Feld eine Trhung stafinden soll
+            {
+                turn(turns[0].turnType);
+
+                turns.RemoveAt(0);
+            }
+
+           
 
         }
 
@@ -287,11 +331,6 @@ public class SnakePart : MonoBehaviour
     
 
         moveSnakePart();
-
-        //if (nextElement == null)
-        //{
-        //    grid.snake.move();// wenn alle elemte sich begt haben muss die nechtste bewegung beim kopf starten
-        //}
     }
 
     public void changeSpeed(float newSpeed)
@@ -308,10 +347,12 @@ public class SnakePart : MonoBehaviour
         snakeMove.snakePart = this;
     }
 
+
+
     // Start is called before the first frame update
     void Start()
     {
-
+       
     }
 
     // Update is called once per frame
