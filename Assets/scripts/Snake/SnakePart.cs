@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class SnakePart : MonoBehaviour
 {
-
-
-
     public int x { get; set; }
     public int y { get; set; }
     public SnakePart nextElement { get; set; }
@@ -18,31 +15,21 @@ public class SnakePart : MonoBehaviour
         up, down, left, right
     }
 
-    private Tile positonTile; //eventuell unnötig
-    private Tile turnTile;
-    private bool nextTurn;
-
-    SnakeBody snakeBodypre;// = Resources.Load<SnakeBody>("SnakeBodyObject");
+    private Tile positonTile;
+    SnakeBody snakeBodypre;
 
     public Grid grid { get; set; }
-
-
     snakeMoveFunction snakeMove;
-
     private bool addElemnt = false;
-
     public bool turnRequiret { get; private set; } = false;
-
     private bool turnType;
 
-
-
-    private List<SnakeTurn> turns = new List<SnakeTurn>(); //ToDo
+    private List<SnakeTurn> turns = new List<SnakeTurn>();
 
     private void makeTurn()
     {
 
-        Debug.Log("Turn " + turnType + " !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        //Debug.Log("Turn " + turnType + " !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         if (turnType)
         {
             switch (direction)
@@ -95,38 +82,19 @@ public class SnakePart : MonoBehaviour
     {
         turnRequiret = true;
         turnType = turnRight;
-
-
-
-
-        /*
-        SnakeTurn turn = new SnakeTurn();
-        turn.turnType = turnRight;
-
-
-        turns.Enqueue(turn);
-        */
     }
 
     public void informOfTurn(Tile positionOfTurn, bool turnRight)
     {
-        this.nextTurn = turnRight;
-        this.turnTile = positionOfTurn;
+        //Debug.Log("inform of turn");
 
-
-
-        Debug.Log("inform of turn");
-
-        SnakeTurn newTurn =new SnakeTurn(); //weiter machen unfertig 
-        newTurn.turnType = turnRight; 
-        newTurn.positionOfTurn = positionOfTurn;    
+        SnakeTurn newTurn = new SnakeTurn(); //weiter machen unfertig 
+        newTurn.turnType = turnRight;
+        newTurn.positionOfTurn = positionOfTurn;
 
         this.turns.Add(newTurn);
 
-
         Debug.Log(turns.Count);
-
-
     }
 
 
@@ -140,11 +108,9 @@ public class SnakePart : MonoBehaviour
         newBodyPart.x = x;
         newBodyPart.y = y;
 
-
         newBodyPart.grid = grid;
         newBodyPart.direction = direction;
-        newBodyPart.snake=snake;
-
+        newBodyPart.snake = snake;
 
         newBodyPart.init();
         newBodyPart.moveSnakePart();
@@ -155,7 +121,7 @@ public class SnakePart : MonoBehaviour
         }
         catch (Exception ex)
         {
-
+            Debug.LogError(ex);
         }
         snake.addPartToList(newBodyPart);
     }
@@ -222,8 +188,6 @@ public class SnakePart : MonoBehaviour
 
 
         snakeMove.moveToSmoothly(new Vector2(targedX, targedY));
-
-      
     }
 
     public bool hasColidet()
@@ -233,11 +197,11 @@ public class SnakePart : MonoBehaviour
         {
             result = true;
         }
-        if(positonTile.snake != null)
+        if (positonTile.snake != null)
         {
             return true;
         }
-        if(positonTile.token != null)
+        if (positonTile.token != null)
         {
             tokenAction(positonTile.token);
         }
@@ -268,53 +232,32 @@ public class SnakePart : MonoBehaviour
             }
             this.positonTile = grid.getTile(x, y);
 
-
             //check collison
             if (hasColidet())
             {
                 collisionAction();
             }
 
-
             positonTile.snake = this;
         }
         catch (Exception e)
         {
-
+            Debug.LogError(e);
         }
-        
 
-          /*
-        if (turnTile != null) //drehcode weitergabe ohen liste
-        {
-            Vector2 turnPos = turnTile.getPostion();
-
-            if (turnPos.x == this.x && turnPos.y == this.y)  //check ob sich im neuen Feld eine Trhung stafinden soll
-            {
-                turn(nextTurn);
-            }
-
-
-        }*/
-
-
-        if(turns.Count != 0 ) //drehcode weitergabe mit liste
+        if (turns.Count != 0)
         {
             Vector2 turnPos = turns[0].positionOfTurn.getPostion();
             Debug.Log("make informet turn");
 
-            Debug.Log("Ziel:"+turnPos  + " pos"+x+" "+ y);
+            Debug.Log("Ziel:" + turnPos + " pos" + x + " " + y);
             if (turnPos.x == this.x && turnPos.y == this.y)  //check ob sich im neuen Feld eine Trhung stafinden soll
             {
                 turn(turns[0].turnType);
 
                 turns.RemoveAt(0);
             }
-
-           
-
         }
-
 
         if (addElemnt)
         {
@@ -327,8 +270,6 @@ public class SnakePart : MonoBehaviour
             turnRequiret = false;
             makeTurn();
         }
-
-    
 
         moveSnakePart();
     }
@@ -347,12 +288,10 @@ public class SnakePart : MonoBehaviour
         snakeMove.snakePart = this;
     }
 
-
-
     // Start is called before the first frame update
     void Start()
     {
-       
+
     }
 
     // Update is called once per frame
