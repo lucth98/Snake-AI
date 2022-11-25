@@ -9,6 +9,7 @@ public class SnakeHead : SnakePart
     public override void collisionAction()
     {
         snake.changeSpeed(0f);
+        snake.endAIRound();
     }
 
     public override void tokenAction(Token token)

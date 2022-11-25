@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.MLAgents;
+using Unity.MLAgents.Sensors;
+using Unity.MLAgents.Actuators;
 
-public class Snake : MonoBehaviour
+public class Snake : Agent //MonoBehaviour
 {
     private List<SnakePart> snake = new List<SnakePart>();
 
@@ -57,7 +60,18 @@ public class Snake : MonoBehaviour
     public void addPartToList(SnakePart part)
     {
         snake.Add(part);
+
+        
+        //AI Rewart
+        SetReward(1.0f);
     }
+
+    public void endAIRound()
+    {
+        EndEpisode();
+
+    }
+
     public void addSnakePart()
     {
         snake[0].addBodyPart();
@@ -95,7 +109,46 @@ public class Snake : MonoBehaviour
     }
 
 
-    
+    public override void OnEpisodeBegin()
+    {
+
+    }
+
+    public override void CollectObservations(VectorSensor sensor)
+    {
+        //Hier wird mit den sensor daten an die AI zu verbeiten geschickt
+       
+        //Anz an Elementen
+        sensor.AddObservation(snake.Count);
+
+        //Postion vom Kopf der Schlange
+        sensor.AddObservation(snake[0].x);
+        sensor.AddObservation(snake[0].y);
+
+
+
+        //ToDo
+
+    }
+
+    public override void OnActionReceived(ActionBuffers actions)
+    {
+
+
+
+        if (actions.DiscreteActions[0] < 0)
+        {
+            //drehe links
+        }
+        else
+        {
+            //drehe links
+        }
+
+
+
+    }
+
 
 
 
