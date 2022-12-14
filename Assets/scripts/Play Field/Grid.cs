@@ -103,6 +103,7 @@ public class Grid : MonoBehaviour
         //ToDO RandPos
 
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -144,6 +145,12 @@ public class Grid : MonoBehaviour
         addIncreaseToken();
 
     }
+
+    public void reset()
+    {
+        //DoTo
+    }
+
 
 
 }

@@ -5,7 +5,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
-public class Snake : Agent //MonoBehaviour
+public class Snake : MonoBehaviour
 {
     private List<SnakePart> snake = new List<SnakePart>();
 
@@ -16,6 +16,11 @@ public class Snake : Agent //MonoBehaviour
     //SnakeBody snakeBodypre = Resources.Load<SnakeBody>("SnakeBodyObject");
 
     private Grid Grid;
+
+    public int getSnakeLenght()
+    {
+        return snake.Count;
+    }
     public void setTurnButtons(KeyCode buttonTurnLeft, KeyCode buttonTurnRight)
     {
         this.buttonTurnLeft = buttonTurnLeft;
@@ -33,7 +38,7 @@ public class Snake : Agent //MonoBehaviour
         {
             return;
         }
-      
+
         if (Input.GetKeyDown(buttonTurnLeft))
         {
             snake[0].turn(false);
@@ -46,7 +51,7 @@ public class Snake : Agent //MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            addSnakePart(); 
+            addSnakePart();
 
         }
 
@@ -61,15 +66,16 @@ public class Snake : Agent //MonoBehaviour
     {
         snake.Add(part);
 
-        
         //AI Rewart
-        SetReward(1.0f);
+        //SetReward(1.0f);
     }
 
-    public void endAIRound()
+    public void aiDeath()
     {
-        EndEpisode();
+        //AI punishment for Dying
+        //SetReward(-50.0f);
 
+        //EndEpisode();
     }
 
     public void addSnakePart()
@@ -84,9 +90,9 @@ public class Snake : Agent //MonoBehaviour
 
     public void changeSpeed(float newSpeed)
     {
-        foreach(SnakePart b in snake)
+        foreach (SnakePart b in snake)
         {
-            Debug.Log("change Speed" +"length= "+snake.Count);
+            Debug.Log("change Speed" + "length= " + snake.Count);
             b.changeSpeed(newSpeed);
         }
     }
@@ -94,7 +100,7 @@ public class Snake : Agent //MonoBehaviour
     public void init(int x, int y, Grid grid)
     {
         snakeHeadpre = Resources.Load<SnakeHead>("SnakeHeadObject");
-        SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y,-2), Quaternion.identity);
+        SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y, -2), Quaternion.identity);
         head.direction = SnakePart.Direction.right;
         head.grid = grid;
         head.snake = this;
@@ -105,52 +111,26 @@ public class Snake : Agent //MonoBehaviour
 
         this.Grid = grid;
 
-        move(); 
+        move();
+    }
+
+    public void reset()
+    {
+        Grid.reset();
+        //DoTo
     }
 
 
-    public override void OnEpisodeBegin()
+    public void makeAITurn(bool turnRight)
     {
-
-    }
-
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        //Hier wird mit den sensor daten an die AI zu verbeiten geschickt
-       
-        //Anz an Elementen
-        sensor.AddObservation(snake.Count);
-
-        //Postion vom Kopf der Schlange
-        sensor.AddObservation(snake[0].x);
-        sensor.AddObservation(snake[0].y);
-
-
-
-        //ToDo
-
-    }
-
-    public override void OnActionReceived(ActionBuffers actions)
-    {
-
-
-
-        if (actions.DiscreteActions[0] < 0)
+        if (!snake[0].turnRequiret)
         {
-            //drehe links
+            //dreht die schlage
+            snake[0].turn(turnRight);
         }
-        else
-        {
-            //drehe links
-        }
-
-
-
     }
 
-
-
+    
 
     // Start is called before the first frame update
     void Start()

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1812270348704420420}
   - component: {fileID: 4106570379119020723}
   - component: {fileID: 3367249772316474798}
+  - component: {fileID: -2765032072291900843}
+  - component: {fileID: -6249192095283352680}
   m_Layer: 0
   m_Name: SnakeHeadObject
   m_TagString: Untagged
@@ -110,3 +112,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12fc159e9ddc7784c913fdc740a4df56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2765032072291900843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387421841382283056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1007fa24c21e442a794bde5fb83726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6249192095283352680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387421841382283056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 0}
+  m_SensorName: CameraSensor
+  m_Width: 84
+  m_Height: 84
+  m_Grayscale: 1
+  m_ObservationType: 0
+  m_ObservationStacks: 7
+  m_Compression: 1

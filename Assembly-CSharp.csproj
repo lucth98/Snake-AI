@@ -63,6 +63,7 @@
     <Compile Include="Assets\scripts\Snake\snakeMoveFunction.cs" />
     <Compile Include="Assets\scripts\Play Field\Grid.cs" />
     <Compile Include="Assets\scripts\Collectables\Token.cs" />
+    <Compile Include="Assets\scripts\Snake\SnakeAI.cs" />
     <Compile Include="Assets\scripts\Play Field\Tile.cs" />
     <Compile Include="Assets\scripts\Collectables\IncreaseSizeToken.cs" />
     <Compile Include="Assets\scripts\Snake\SnakeHead.cs" />
