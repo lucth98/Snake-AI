@@ -8,15 +8,19 @@ public class Grid : MonoBehaviour
 {
     public Snake snake { get; private set; }
 
-    private int height = 60;
+    public int height = 60;
 
-    private int with = 60;
+    public int with = 60;
+
+    public int numberOfIncreaseSizeTokens = 1;
 
     private Tile tile;
 
     private Tile[,] field;
 
     private IncreaseSizeToken increase;
+
+
     public void drawGrid()
     {
         for (int x = 0; x < with; x++)
@@ -139,11 +143,11 @@ public class Grid : MonoBehaviour
     private void addTokens()
     {
         increase = Resources.Load<IncreaseSizeToken>("IncreasSizeObject");
-        addIncreaseToken();
-        addIncreaseToken();
-        addIncreaseToken();
-        addIncreaseToken();
 
+        for(int i = 0; i < numberOfIncreaseSizeTokens; i++)
+        {
+            addIncreaseToken();
+        }
     }
 
     public void reset()
