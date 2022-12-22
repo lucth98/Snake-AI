@@ -27,8 +27,7 @@ public class SnakeAI : Agent
 
     public override void OnEpisodeBegin()
     {
-        //DOTO Spiel zurücksetzen
-
+        snake.reset();
 
 
     }

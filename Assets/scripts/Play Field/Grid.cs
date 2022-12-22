@@ -90,13 +90,16 @@ public class Grid : MonoBehaviour
         tile = Resources.Load<Tile>("TileObject");
         field = new Tile[height, with];
         moveCamera();
+        init();
+        initSnake();
+    }
+
+    private void init()
+    {
         drawGrid();
         makeBarres();
-
         addTokens();
-
-        initSnake();
-
+       // initSnake();
     }
 
     private void initSnake()
@@ -153,6 +156,25 @@ public class Grid : MonoBehaviour
     public void reset()
     {
         //DoTo
+
+
+        for (int x = 0; x < with; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                //toDo
+                Token token = field[y, x].token;
+
+
+                if(token != null)
+                {
+                    token.deliteToken();
+                }
+
+            }
+        }
+
+        addTokens();
     }
 
 

@@ -6,6 +6,11 @@ public class Token : MonoBehaviour
 {
     public Grid grid { get;  set; }
     public Tile tile { get; set; }
+
+    public void deliteToken()
+    {
+        Destroy(gameObject);
+    }
     public virtual void action(Snake snake)
     {
 
