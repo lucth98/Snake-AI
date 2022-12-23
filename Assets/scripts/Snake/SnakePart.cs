@@ -190,6 +190,11 @@ public class SnakePart : MonoBehaviour
         snakeMove.moveToSmoothly(new Vector2(targedX, targedY));
     }
 
+    public void stopSnakeMovement()
+    {
+        snakeMove.stopMovement();
+    }
+
     public bool hasColidet()
     {
         bool result = false;
@@ -242,7 +247,7 @@ public class SnakePart : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError(e);
+         //   Debug.LogError(e);
         }
 
         if (turns.Count != 0)
@@ -279,6 +284,11 @@ public class SnakePart : MonoBehaviour
         snakeMove.speed = newSpeed;
     }
 
+    public void deliteSnakePart()
+    {
+        positonTile.snake = null;
+        Destroy(gameObject);
+    }
     public void init()
     {
         this.x = (int)transform.position.x;
@@ -286,6 +296,18 @@ public class SnakePart : MonoBehaviour
         snakeBodypre = Resources.Load<SnakeBody>("SnakeBodyObject");
         snakeMove = GetComponent<snakeMoveFunction>();
         snakeMove.snakePart = this;
+    }
+
+
+    public void teleportPart(Vector2 vector)
+    {
+        positonTile.snake = null;
+        transform.position = vector;
+
+        positonTile = grid.getTile((int)vector.x, (int)vector.y);
+
+        x = (int)vector.x;
+        y = (int)vector.y;
     }
 
     // Start is called before the first frame update

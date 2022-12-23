@@ -24,6 +24,17 @@ public class snakeMoveFunction : MonoBehaviour
         move = true;
     }
 
+    public void stopMovement()
+    {
+        move = false;
+   
+    }
+
+    public void startMovment()
+    {
+        move = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,33 +44,12 @@ public class snakeMoveFunction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         movment(Time.deltaTime);
-        //if (move)
-        //{
-        //    float step = speed * Time.deltaTime;
-        //    //Debug.Log("Pos= " + transform.position);
-        //    //Debug.Log("Ziel= " + targedVector);
-        //    transform.position = Vector2.MoveTowards(transform.position, targedVector, step);
-
-        //    if (Vector2.Distance(transform.position, targedVector) < 0.01f)
-        //    {
-
-        //        Debug.Log("target reached");
-        //        transform.position = targedVector;
-
-        //        move = false;
-        //        snakePart.movedToPositonCallBack((int)transform.position.x, (int)transform.position.y);
-        //    }
-        //}
-
-
-
     }
 
     void movment(float time)
     {
-        if (move)
+        if (move && targedVector != null)
         {
             float step = speed * time;
             //Debug.Log("Pos= " + transform.position);

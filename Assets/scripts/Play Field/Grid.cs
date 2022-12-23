@@ -8,15 +8,19 @@ public class Grid : MonoBehaviour
 {
     public Snake snake { get; private set; }
 
-    private int height = 60;
+    public int height = 60;
 
-    private int with = 60;
+    public int with = 60;
+
+    public int numberOfIncreaseSizeTokens = 1;
 
     private Tile tile;
 
     private Tile[,] field;
 
     private IncreaseSizeToken increase;
+
+
     public void drawGrid()
     {
         for (int x = 0; x < with; x++)
@@ -86,13 +90,16 @@ public class Grid : MonoBehaviour
         tile = Resources.Load<Tile>("TileObject");
         field = new Tile[height, with];
         moveCamera();
+        init();
+        initSnake();
+    }
+
+    private void init()
+    {
         drawGrid();
         makeBarres();
-
         addTokens();
-
-        initSnake();
-
+       // initSnake();
     }
 
     private void initSnake()
@@ -139,16 +146,35 @@ public class Grid : MonoBehaviour
     private void addTokens()
     {
         increase = Resources.Load<IncreaseSizeToken>("IncreasSizeObject");
-        addIncreaseToken();
-        addIncreaseToken();
-        addIncreaseToken();
-        addIncreaseToken();
 
+        for(int i = 0; i < numberOfIncreaseSizeTokens; i++)
+        {
+            addIncreaseToken();
+        }
     }
 
     public void reset()
     {
         //DoTo
+
+
+        for (int x = 0; x < with; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                //toDo
+                Token token = field[y, x].token;
+
+
+                if(token != null)
+                {
+                    token.deliteToken();
+                }
+
+            }
+        }
+
+        addTokens();
     }
 
 

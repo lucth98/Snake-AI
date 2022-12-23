@@ -27,8 +27,7 @@ public class SnakeAI : Agent
 
     public override void OnEpisodeBegin()
     {
-        //DOTO Spiel zurücksetzen
-
+        snake.reset();
 
 
     }
@@ -48,13 +47,16 @@ public class SnakeAI : Agent
     public void aiDeath()
     {
         //AI punishment for Dying
-        SetReward(-50.0f); // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
+
+        AddReward(-50.0f);
+        // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
         EndEpisode();
     }
 
     public void snakeIncreaseReward()
     {
-        SetReward(1.0f); // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
+        AddReward(1.0f);
+        // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
     }
 
 
