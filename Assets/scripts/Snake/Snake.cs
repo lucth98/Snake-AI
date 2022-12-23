@@ -60,6 +60,12 @@ public class Snake : MonoBehaviour
             changeSpeed(0f);
 
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            reset();
+
+        }
     }
 
     public void addPartToList(SnakePart part)
@@ -70,13 +76,13 @@ public class Snake : MonoBehaviour
         //SetReward(1.0f);
     }
 
-    public void aiDeath()
-    {
-        //AI punishment for Dying
-        //SetReward(-50.0f);
+    //public void aiDeath()
+    //{
+    //    //AI punishment for Dying
+    //    //SetReward(-50.0f);
 
-        //EndEpisode();
-    }
+    //    //EndEpisode();
+    //}
 
     public void addSnakePart()
     {
@@ -116,8 +122,25 @@ public class Snake : MonoBehaviour
 
     public void reset()
     {
-        Grid.reset();
-        //DoTo
+        if (snake.Count > 1)
+        {
+
+            for (int i = 1; i < snake.Count; i++)
+            {
+                snake[i].deliteSnakePart();
+                snake.RemoveAt(i);
+                i--;
+            }
+        }
+
+        //Reset Snake Head
+        Vector2 newHeadPosition = new Vector2(Grid.height/2, Grid.with/2);
+        snake[0].teleportPart(newHeadPosition);
+        snake[0].moveSnakePart();
+        snake[0].nextElement = null;
+        
+
+        Grid.reset();       
     }
 
 
@@ -130,7 +153,7 @@ public class Snake : MonoBehaviour
         }
     }
 
-    
+
 
     // Start is called before the first frame update
     void Start()
