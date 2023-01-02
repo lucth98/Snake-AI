@@ -30,6 +30,7 @@ public class Snake : MonoBehaviour
     public void move()
     {
         snake[0].moveSnakePart();
+        //test for comit
     }
 
     public void turn()
