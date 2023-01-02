@@ -68,18 +68,10 @@ public class Snake : MonoBehaviour
     {
         snake.Add(part);
 
-        //AI Rewart
-        //SetReward(1.0f);
+      
     }
 
-    //public void aiDeath()
-    //{
-    //    //AI punishment for Dying
-    //    //SetReward(-50.0f);
-
-    //    //EndEpisode();
-    //}
-
+ 
     public void addSnakePart()
     {
         snake[0].addBodyPart();
