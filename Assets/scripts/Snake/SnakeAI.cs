@@ -51,7 +51,7 @@ public class SnakeAI : Agent
         //AI punishment for Dying
 
         AddReward(-50.0f);
-        // Testen: Vieleicht straffe erhöhen mit länge zb strafe = -länge der Schlange -50
+        // Testen: Vieleicht straffe erhï¿½hen mit lï¿½nge zb strafe = -lï¿½nge der Schlange -50
 
         snake.reset();
         EndEpisode();
@@ -60,14 +60,14 @@ public class SnakeAI : Agent
     public void snakeIncreaseReward()
     {
         AddReward(1.0f);
-        // Testen: Vieleicht rewart erhöhen mit länge zb rewart = länge der Schlange
+        // Testen: Vieleicht rewart erhï¿½hen mit lï¿½nge zb rewart = lï¿½nge der Schlange
     }
 
 
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        snake.makeAITurn(actions.DiscreteActions[0] < 0);
+        snake.makeAITurn(actions.ContinuousActions[0] < 0);
 
     }
 
