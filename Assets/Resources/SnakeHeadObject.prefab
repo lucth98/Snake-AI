@@ -129,7 +129,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 5000
 --- !u!114 &-6249192095283352680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,13 +142,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 5221020090975694714, guid: 7ebd760d802d3a04d8179cb3e770738b, type: 3}
   m_SensorName: CameraSensor
   m_Width: 84
   m_Height: 84
   m_Grayscale: 1
   m_ObservationType: 0
-  m_ObservationStacks: 7
+  m_ObservationStacks: 5
   m_Compression: 1
 --- !u!114 &605589458807659070
 MonoBehaviour:
@@ -163,8 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
-    NumStackedVectorObservations: 1
+    VectorObservationSize: 2
+    NumStackedVectorObservations: 5
     m_ActionSpec:
       m_NumContinuousActions: 1
       BranchSizes: 01000000
@@ -179,4 +179,4 @@ MonoBehaviour:
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
-  m_ObservableAttributeHandling: 0
+  m_ObservableAttributeHandling: 1

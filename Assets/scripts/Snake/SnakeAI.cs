@@ -5,9 +5,11 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Sensors.Reflection;
 
 public class SnakeAI : Agent
 {
+    //  [Observable]
     private CameraSensorComponent cameraSensor;
 
     private SnakeHead head;
@@ -67,6 +69,8 @@ public class SnakeAI : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        Debug.Log("Des action= " + actions.DiscreteActions[0]);
+        Debug.Log("Con action = " + actions.ContinuousActions[0]);
         snake.makeAITurn(actions.ContinuousActions[0] < 0);
 
     }
@@ -80,6 +84,7 @@ public class SnakeAI : Agent
     // Update is called once per frame
     void Update()
     {
-
+        RequestDecision();
+        
     }
 }

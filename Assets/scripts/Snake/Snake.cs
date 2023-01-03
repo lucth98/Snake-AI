@@ -5,12 +5,14 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
-public class Snake : MonoBehaviour
+public class Snake :ScriptableObject
 {
     private List<SnakePart> snake = new List<SnakePart>();
 
     private KeyCode buttonTurnLeft = KeyCode.A;
     private KeyCode buttonTurnRight = KeyCode.D;
+
+   
 
     SnakeHead snakeHeadpre;// = Resources.Load<SnakeHead>("SnakeHeadObject");
     //SnakeBody snakeBodypre = Resources.Load<SnakeBody>("SnakeBodyObject");
@@ -144,14 +146,4 @@ public class Snake : MonoBehaviour
 
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

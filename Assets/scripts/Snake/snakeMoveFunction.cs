@@ -70,7 +70,7 @@ public class snakeMoveFunction : MonoBehaviour
             if (Vector2.Distance(transform.position, targedVector) < 0.01f)
             {
 
-                Debug.Log("target reached");
+              //  Debug.Log("target reached");
                 transform.position = targedVector;
 
                 move = false;

@@ -123,7 +123,7 @@ public class Grid : MonoBehaviour
 
     public void addIncreaseToken()
     {
-        Debug.Log("add increse Token");
+        //Debug.Log("add increse Token");
         System.Random random = new System.Random();
 
         int tokenX = 0;
