@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,12 @@ public class Tile : MonoBehaviour
     void Start()
     {
 
+    }
+
+    internal void setWhiteColor()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.color = new Color32(250, 250, 250, 255);
     }
 
     // Update is called once per frame

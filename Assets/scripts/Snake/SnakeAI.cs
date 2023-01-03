@@ -19,6 +19,8 @@ public class SnakeAI : Agent
 
     private float lastDistanceToInceaseToken = 0.0f;
 
+    
+
 
 
     private void init()
@@ -73,7 +75,7 @@ public class SnakeAI : Agent
         }
         else
         {
-            AddReward(-0.4f);
+            AddReward(-0.1f);
         }
 
         lastDistanceToInceaseToken = newDistance;
@@ -132,7 +134,7 @@ public class SnakeAI : Agent
         Debug.Log("Current Reward= "+GetCumulativeReward());
         distanceToTokenRewart();
 
-        if (action < 1 && action > -1)
+        if (action < 0.5f && action > -0.5f)
         {
             Debug.Log("Fahre gerade aus & value= " + action);
             return;

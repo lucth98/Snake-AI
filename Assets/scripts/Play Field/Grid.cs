@@ -14,6 +14,8 @@ public class Grid : MonoBehaviour
 
     public int numberOfIncreaseSizeTokens = 1;
 
+    public bool color = true;
+
     private Tile tile;
 
     private Tile[,] field;
@@ -31,8 +33,14 @@ public class Grid : MonoBehaviour
                 var newTile = Instantiate(tile, new Vector3(x, y, 1), Quaternion.identity);
 
                 newTile.name = "Tile Pos: X=" + x + " Y=" + y;
-
-                newTile.setCollor((x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0));
+                if (color)
+                {
+                    newTile.setCollor((x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0));
+                }
+                else
+                {
+                    newTile.setWhiteColor();
+                }
 
                 field[y, x] = newTile;
             }
@@ -95,7 +103,7 @@ public class Grid : MonoBehaviour
         initSnake();
     }
 
-   
+
 
     private void init()
     {
@@ -105,7 +113,7 @@ public class Grid : MonoBehaviour
         // initSnake();
 
 
-       
+
     }
 
     private void initSnake()
@@ -182,7 +190,7 @@ public class Grid : MonoBehaviour
                 Token token = field[y, x].token;
 
 
-                if(token != null)
+                if (token != null)
                 {
                     token.deliteToken();
                 }
