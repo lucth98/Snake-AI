@@ -30,18 +30,20 @@ public class SnakeAI : Agent
         cameraSensor.Camera = Camera.main;
 
         grid= snake.getGrid();
+
+        lastDistanceToInceaseToken = calculateDistanz();
     }
 
 
-    private void distanceToTokenRewart()
+    private float calculateDistanz()
     {
         Vector2 position = snake.getHeadPosition();
 
         List<IncreaseSizeToken> tokens = grid.increaseList;
 
-        if(tokens.Count == 0)
+        if (tokens.Count == 0)
         {
-            return;
+            return 100;
         }
 
         float newDistance = Vector2.Distance(position, tokens[0].getPosition());
@@ -55,6 +57,34 @@ public class SnakeAI : Agent
                 newDistance = distance;
             }
         }
+
+        return newDistance;
+    }
+
+    private void distanceToTokenRewart()
+    {
+        //Vector2 position = snake.getHeadPosition();
+
+        //List<IncreaseSizeToken> tokens = grid.increaseList;
+
+        //if(tokens.Count == 0)
+        //{
+        //    return;
+        //}
+
+        //float newDistance = Vector2.Distance(position, tokens[0].getPosition());
+
+        //for (int i = 0; i < tokens.Count; i++)
+        //{
+        //    float distance = Vector2.Distance(position, tokens[0].getPosition());
+
+        //    if (distance < newDistance)
+        //    {
+        //        newDistance = distance;
+        //    }
+        //}
+
+        float newDistance = calculateDistanz();
 
         if(newDistance < lastDistanceToInceaseToken)
         {
@@ -84,6 +114,9 @@ public class SnakeAI : Agent
         //Anz an Elementen
         float snakeLenght = (float)snake.getSnakeLenght();
         sensor.AddObservation(snakeLenght);
+
+        //distanz zum token
+        sensor.AddObservation(lastDistanceToInceaseToken);
 
     }
 
@@ -115,12 +148,15 @@ public class SnakeAI : Agent
 
         distanceToTokenRewart();
 
-        if(actions.ContinuousActions[0] == 0)
+        if (actions.ContinuousActions[0] > 1 && actions.ContinuousActions[0] < -1)
         {
-            return ;
+            return;
         }
+        else
+        {
 
-        snake.makeAITurn(actions.ContinuousActions[0] < 0);
+            snake.makeAITurn(actions.ContinuousActions[0] < 0);
+        }
 
     }
 
