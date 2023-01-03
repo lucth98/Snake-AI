@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Height: 84
   m_Grayscale: 1
   m_ObservationType: 0
-  m_ObservationStacks: 5
+  m_ObservationStacks: 1
   m_Compression: 1
 --- !u!114 &605589458807659070
 MonoBehaviour:
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BrainParameters:
     VectorObservationSize: 2
-    NumStackedVectorObservations: 5
+    NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 1
       BranchSizes: 01000000
