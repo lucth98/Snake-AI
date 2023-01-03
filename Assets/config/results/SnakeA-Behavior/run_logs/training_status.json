@@ -1,26 +1,4 @@
 {
-    "SnakeA-Behavior": {
-        "checkpoints": [
-            {
-                "steps": 5242,
-                "file_path": "results\\SnakeA-Behavior\\SnakeA-Behavior\\SnakeA-Behavior-5242.onnx",
-                "reward": null,
-                "creation_time": 1672764968.1459787,
-                "auxillary_file_paths": [
-                    "results\\SnakeA-Behavior\\SnakeA-Behavior\\SnakeA-Behavior-5242.pt"
-                ]
-            }
-        ],
-        "final_checkpoint": {
-            "steps": 5242,
-            "file_path": "results\\SnakeA-Behavior\\SnakeA-Behavior.onnx",
-            "reward": null,
-            "creation_time": 1672764968.1459787,
-            "auxillary_file_paths": [
-                "results\\SnakeA-Behavior\\SnakeA-Behavior\\SnakeA-Behavior-5242.pt"
-            ]
-        }
-    },
     "metadata": {
         "stats_format_version": "0.3.0",
         "mlagents_version": "0.30.0",

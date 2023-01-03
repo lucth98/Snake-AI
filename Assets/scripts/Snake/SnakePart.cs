@@ -166,6 +166,8 @@ public class SnakePart : MonoBehaviour
 
     public void moveSnakePart()
     {
+        makeAIDessison();
+
         int targedX = x;
         int targedY = y;
 
@@ -217,14 +219,19 @@ public class SnakePart : MonoBehaviour
         return result;
     }
 
+    public virtual void makeAIDessison()
+    {
+        //impletaion in sub clases (snake head)
+    }
+
     public virtual void tokenAction(Token token)
     {
-
+        //impletaion in sub clases (snake head)
     }
 
     public virtual void collisionAction()
     {
-
+        //impletaion in sub clases (snake head)
     }
 
     public void movedToPositonCallBack(int newX, int newY)  //wird von snakemove gerufen wenn eine bewegug fertig ist

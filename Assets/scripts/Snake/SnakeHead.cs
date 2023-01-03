@@ -6,6 +6,16 @@ public class SnakeHead : SnakePart
 {
     private SnakeAI AI;
 
+    public override void makeAIDessison()
+    {
+        if (AI == null)
+        {
+            return;
+        }
+
+        AI.RequestDecision();
+    }
+
     public override void collisionAction()
     {
         //snake.changeSpeed(0f);

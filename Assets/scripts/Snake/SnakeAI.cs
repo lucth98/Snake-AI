@@ -84,7 +84,7 @@ public class SnakeAI : Agent
     // Update is called once per frame
     void Update()
     {
-        RequestDecision();
+       // RequestDecision();
         
     }
 }
