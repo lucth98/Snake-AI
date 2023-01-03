@@ -65,6 +65,7 @@ public class SnakeAI : Agent
             AddReward(-0.1f);
         }
 
+        lastDistanceToInceaseToken = newDistance;
     }
 
 
