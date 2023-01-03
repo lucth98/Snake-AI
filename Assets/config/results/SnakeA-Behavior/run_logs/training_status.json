@@ -2,22 +2,22 @@
     "SnakeA-Behavior": {
         "checkpoints": [
             {
-                "steps": 12456,
-                "file_path": "results\\SnakeA-Behavior\\SnakeA-Behavior\\SnakeA-Behavior-12456.onnx",
-                "reward": -12.487500183284283,
-                "creation_time": 1672777039.0197246,
+                "steps": 14549,
+                "file_path": "results\\SnakeA-Behavior\\SnakeA-Behavior\\SnakeA-Behavior-14549.onnx",
+                "reward": -59.14392590077124,
+                "creation_time": 1672784322.088228,
                 "auxillary_file_paths": [
-                    "results\\SnakeA-Behavior\\SnakeA-Behavior\\SnakeA-Behavior-12456.pt"
+                    "results\\SnakeA-Behavior\\SnakeA-Behavior\\SnakeA-Behavior-14549.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 12456,
+            "steps": 14549,
             "file_path": "results\\SnakeA-Behavior\\SnakeA-Behavior.onnx",
-            "reward": -12.487500183284283,
-            "creation_time": 1672777039.0197246,
+            "reward": -59.14392590077124,
+            "creation_time": 1672784322.088228,
             "auxillary_file_paths": [
-                "results\\SnakeA-Behavior\\SnakeA-Behavior\\SnakeA-Behavior-12456.pt"
+                "results\\SnakeA-Behavior\\SnakeA-Behavior\\SnakeA-Behavior-14549.pt"
             ]
         }
     },

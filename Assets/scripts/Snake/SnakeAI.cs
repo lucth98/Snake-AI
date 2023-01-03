@@ -63,26 +63,7 @@ public class SnakeAI : Agent
 
     private void distanceToTokenRewart()
     {
-        //Vector2 position = snake.getHeadPosition();
-
-        //List<IncreaseSizeToken> tokens = grid.increaseList;
-
-        //if(tokens.Count == 0)
-        //{
-        //    return;
-        //}
-
-        //float newDistance = Vector2.Distance(position, tokens[0].getPosition());
-
-        //for (int i = 0; i < tokens.Count; i++)
-        //{
-        //    float distance = Vector2.Distance(position, tokens[0].getPosition());
-
-        //    if (distance < newDistance)
-        //    {
-        //        newDistance = distance;
-        //    }
-        //}
+        
 
         float newDistance = calculateDistanz();
 
@@ -92,7 +73,7 @@ public class SnakeAI : Agent
         }
         else
         {
-            AddReward(-0.1f);
+            AddReward(-0.4f);
         }
 
         lastDistanceToInceaseToken = newDistance;
@@ -110,6 +91,7 @@ public class SnakeAI : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         //Hier wird mit den sensor daten an die AI zu verbeiten geschickt
+      
 
         //Anz an Elementen
         float snakeLenght = (float)snake.getSnakeLenght();
@@ -117,6 +99,7 @@ public class SnakeAI : Agent
 
         //distanz zum token
         sensor.AddObservation(lastDistanceToInceaseToken);
+        Debug.Log("Ai Data length= " + snakeLenght + "distance to token= "+lastDistanceToInceaseToken);
 
     }
 
@@ -143,21 +126,30 @@ public class SnakeAI : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        Debug.Log("Des action= " + actions.DiscreteActions[0]);
-        Debug.Log("Con action = " + actions.ContinuousActions[0]);
+        float action = actions.ContinuousActions[0];
 
+        Debug.Log("Con action = " + action);
+        Debug.Log("Current Reward= "+GetCumulativeReward());
         distanceToTokenRewart();
 
-        if (actions.ContinuousActions[0] > 1 && actions.ContinuousActions[0] < -1)
+        if (action < 1 && action > -1)
         {
+            Debug.Log("Fahre gerade aus & value= " + action);
             return;
         }
         else
         {
+            snake.makeAITurn(action < 0);
 
-            snake.makeAITurn(actions.ContinuousActions[0] < 0);
+            if(actions.ContinuousActions[0] < 0)
+            {
+                Debug.Log("drehe rechts & value= " + action);
+            }
+            else
+            {
+                Debug.Log("drehe links & value= " + action);
+            }
         }
-
     }
 
     // Start is called before the first frame update

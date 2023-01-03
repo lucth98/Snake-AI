@@ -105,7 +105,7 @@ public class Snake : ScriptableObject
     {
         foreach (SnakePart b in snake)
         {
-            Debug.Log("change Speed" + "length= " + snake.Count);
+            //Debug.Log("change Speed" + "length= " + snake.Count);
             b.changeSpeed(newSpeed);
         }
     }
