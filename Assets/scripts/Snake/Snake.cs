@@ -5,24 +5,30 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
-public class Snake :ScriptableObject
+public class Snake : ScriptableObject
 {
     private List<SnakePart> snake = new List<SnakePart>();
 
     private KeyCode buttonTurnLeft = KeyCode.A;
     private KeyCode buttonTurnRight = KeyCode.D;
 
-   
+
 
     SnakeHead snakeHeadpre;// = Resources.Load<SnakeHead>("SnakeHeadObject");
     //SnakeBody snakeBodypre = Resources.Load<SnakeBody>("SnakeBodyObject");
 
     private Grid Grid;
 
+    public Grid getGrid()
+    {
+        return Grid;
+    }
+
     public int getSnakeLenght()
     {
         return snake.Count;
     }
+
     public void setTurnButtons(KeyCode buttonTurnLeft, KeyCode buttonTurnRight)
     {
         this.buttonTurnLeft = buttonTurnLeft;
@@ -58,7 +64,7 @@ public class Snake :ScriptableObject
 
         }
 
-    
+
 
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -71,10 +77,20 @@ public class Snake :ScriptableObject
     {
         snake.Add(part);
 
-      
+
     }
 
- 
+    public Vector2 getHeadPosition()
+    {
+        Vector2 position = new Vector2();
+
+        position.x = snake[0].x;
+        position.y = snake[0].y;
+
+        return position;
+
+    }
+
     public void addSnakePart()
     {
         snake[0].addBodyPart();
@@ -125,13 +141,13 @@ public class Snake :ScriptableObject
         }
 
         //Reset Snake Head
-        Vector2 newHeadPosition = new Vector2(Grid.height/2, Grid.with/2);
+        Vector2 newHeadPosition = new Vector2(Grid.height / 2, Grid.with / 2);
         snake[0].teleportPart(newHeadPosition);
         snake[0].moveSnakePart();
         snake[0].nextElement = null;
-        
 
-        Grid.reset();       
+
+        Grid.reset();
     }
 
 

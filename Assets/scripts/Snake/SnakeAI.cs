@@ -14,6 +14,10 @@ public class SnakeAI : Agent
 
     private SnakeHead head;
     private Snake snake;
+    private Grid grid;
+
+
+    private float lastDistanceToInceaseToken = 0.0f;
 
 
 
@@ -24,8 +28,44 @@ public class SnakeAI : Agent
         snake = head.snake;
 
         cameraSensor.Camera = Camera.main;
+
+        grid= snake.getGrid();
     }
 
+
+    private void distanceToTokenRewart()
+    {
+        Vector2 position = snake.getHeadPosition();
+
+        List<IncreaseSizeToken> tokens = grid.increaseList;
+
+        if(tokens.Count == 0)
+        {
+            return;
+        }
+
+        float newDistance = Vector2.Distance(position, tokens[0].getPosition());
+
+        for (int i = 0; i < tokens.Count; i++)
+        {
+            float distance = Vector2.Distance(position, tokens[0].getPosition());
+
+            if (distance < newDistance)
+            {
+                newDistance = distance;
+            }
+        }
+
+        if(newDistance < lastDistanceToInceaseToken)
+        {
+            AddReward(0.1f);
+        }
+        else
+        {
+            AddReward(-0.1f);
+        }
+
+    }
 
 
     public override void OnEpisodeBegin()
@@ -71,6 +111,14 @@ public class SnakeAI : Agent
     {
         Debug.Log("Des action= " + actions.DiscreteActions[0]);
         Debug.Log("Con action = " + actions.ContinuousActions[0]);
+
+        distanceToTokenRewart();
+
+        if(actions.ContinuousActions[0] == 0)
+        {
+            return ;
+        }
+
         snake.makeAITurn(actions.ContinuousActions[0] < 0);
 
     }
