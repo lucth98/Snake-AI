@@ -19,7 +19,7 @@ public class SnakeAI : Agent
 
     private float lastDistanceToInceaseToken = 0.0f;
 
-    
+
 
 
 
@@ -31,7 +31,7 @@ public class SnakeAI : Agent
 
         cameraSensor.Camera = Camera.main;
 
-        grid= snake.getGrid();
+        grid = snake.getGrid();
 
         lastDistanceToInceaseToken = calculateDistanz();
     }
@@ -65,11 +65,11 @@ public class SnakeAI : Agent
 
     private void distanceToTokenRewart()
     {
-        
+
 
         float newDistance = calculateDistanz();
 
-        if(newDistance < lastDistanceToInceaseToken)
+        if (newDistance < lastDistanceToInceaseToken)
         {
             AddReward(0.1f);
         }
@@ -84,8 +84,8 @@ public class SnakeAI : Agent
 
     public override void OnEpisodeBegin()
     {
- 
-       // snake.reset();
+
+        // snake.reset();
 
 
     }
@@ -93,7 +93,7 @@ public class SnakeAI : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         //Hier wird mit den sensor daten an die AI zu verbeiten geschickt
-      
+
 
         //Anz an Elementen
         float snakeLenght = (float)snake.getSnakeLenght();
@@ -101,7 +101,7 @@ public class SnakeAI : Agent
 
         //distanz zum token
         sensor.AddObservation(lastDistanceToInceaseToken);
-        Debug.Log("Ai Data length= " + snakeLenght + "distance to token= "+lastDistanceToInceaseToken);
+        Debug.Log("Ai Data length= " + snakeLenght + "distance to token= " + lastDistanceToInceaseToken);
 
     }
 
@@ -128,6 +128,46 @@ public class SnakeAI : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        int goStraight = actions.DiscreteActions[0];
+        int turnRight = actions.DiscreteActions[1];
+        int turnLeft = actions.DiscreteActions[2];
+
+        if(goStraight > 0)
+        {
+            if(turnRight > 0 || turnLeft > 0)
+            {
+                AddReward(-1);
+               
+            }
+           
+                return;
+            
+            
+        }
+
+        if(turnLeft > 0)
+        {
+            if (goStraight < 0 || turnRight < 0)
+            {
+                AddReward(-1);
+                
+            }
+            snake.makeAITurn(false);
+        }
+
+        if (turnRight > 0)
+        {
+            if (goStraight < 0 || turnLeft < 0)
+            {
+                AddReward(-1);
+
+            }
+            snake.makeAITurn(true);
+
+        }
+
+
+        /*
         float action = actions.ContinuousActions[0];
 
         Debug.Log("Con action = " + action);
@@ -151,7 +191,8 @@ public class SnakeAI : Agent
             {
                 Debug.Log("drehe links & value= " + action);
             }
-        }
+        }*/
+
     }
 
     // Start is called before the first frame update
@@ -163,7 +204,7 @@ public class SnakeAI : Agent
     // Update is called once per frame
     void Update()
     {
-       // RequestDecision();
-        
+        // RequestDecision();
+
     }
 }
