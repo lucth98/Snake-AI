@@ -115,7 +115,7 @@ public class Grid : MonoBehaviour
         field = new Tile[height, with];
 
         moveCamera(Camera.main);
-        moveCamera(GameObject.Find("AI Camera").GetComponent<Camera>());
+      
 
         init();
         initSnake();
