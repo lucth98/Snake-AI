@@ -111,7 +111,7 @@ public class SnakeAI : Agent
     {
         //AI punishment for Dying
 
-        AddReward(-50.0f);
+        AddReward(-1f);
         // Testen: Vieleicht straffe erh�hen mit l�nge zb strafe = -l�nge der Schlange -50
 
         snake.reset();
