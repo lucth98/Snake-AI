@@ -73,7 +73,23 @@ public class Grid : MonoBehaviour
         this.height = height;
     }
 
-    private void moveCamera()
+    private void moveCamera( Camera camera)
+    {
+       
+        camera.transform.position = new Vector3(((float)with) / 2, ((float)height) / 2, -10);
+        if (height >= with)
+        {
+            camera.orthographicSize = (float)height / 2 + 2;
+        }
+        else
+        {
+            camera.orthographicSize = (float)with / 2 + 2;
+        }
+        camera.backgroundColor = Color.white;
+    }
+
+
+    private void moveCamera2()
     {
         Camera camera = Camera.main;
         camera.transform.position = new Vector3(((float)with) / 2, ((float)height) / 2, -10);
@@ -87,7 +103,6 @@ public class Grid : MonoBehaviour
         }
         camera.backgroundColor = Color.white;
     }
-
     public Tile getTile(int x, int y)
     {
         return field[y, x];
@@ -98,7 +113,10 @@ public class Grid : MonoBehaviour
     {
         tile = Resources.Load<Tile>("TileObject");
         field = new Tile[height, with];
-        moveCamera();
+
+        moveCamera(Camera.main);
+        moveCamera(GameObject.Find("AI Camera").GetComponent<Camera>());
+
         init();
         initSnake();
     }

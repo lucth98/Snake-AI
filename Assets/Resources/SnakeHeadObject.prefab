@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 5221020090975694714, guid: 7ebd760d802d3a04d8179cb3e770738b, type: 3}
+  m_Camera: {fileID: 0}
   m_SensorName: CameraSensor
   m_Width: 84
   m_Height: 84
