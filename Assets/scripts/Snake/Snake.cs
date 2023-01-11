@@ -112,8 +112,9 @@ public class Snake : ScriptableObject
 
     public void init(int x, int y, Grid grid)
     {
-        snakeHeadpre = Resources.Load<SnakeHead>("SnakeHeadObject");
-        SnakeHead head = Instantiate(snakeHeadpre, new Vector3(x, y, -2), Quaternion.identity);
+      //  snakeHeadpre = Resources.Load<SnakeHead>("SnakeHeadObject");
+        SnakeHead head = GameObject.Find("GameObject.Find")   //Instantiate(snakeHeadpre, new Vector3(x, y, -2), Quaternion.identity);
+        head.transform
         head.direction = SnakePart.Direction.right;
         head.grid = grid;
         head.snake = this;
