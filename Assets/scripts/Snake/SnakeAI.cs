@@ -136,30 +136,25 @@ public class SnakeAI : Agent
     {
         try
         {
-            float action = actions.ContinuousActions[0];
-
-            Debug.Log("Con action = " + action);
-            Debug.Log("Current Reward= " + GetCumulativeReward());
-            distanceToTokenRewart();
-
-            if (action < 0.5f && action > -0.5f)
+            float movment = actions.DiscreteActions[0];
+            Debug.Log("descreteaction= " + movment);
+            if(movment == 1)
             {
-                Debug.Log("Fahre gerade aus & value= " + action);
+                Debug.Log("straigth ahead");
                 return;
             }
-            else
+            if(movment == 2)
             {
-                snake.makeAITurn(action < 0);
+                Debug.Log("turn left");
+                snake.makeAITurn(false);
 
-                if (actions.ContinuousActions[0] < 0)
-                {
-                    Debug.Log("drehe rechts & value= " + action);
-                }
-                else
-                {
-                    Debug.Log("drehe links & value= " + action);
-                }
             }
+            if(movment == 3)
+            {
+                Debug.Log("turn right");
+                snake.makeAITurn(true);
+            }
+
         }
         catch (Exception e)
         {

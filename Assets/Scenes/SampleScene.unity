@@ -134,6 +134,22 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 5221020091000100614}
+    - target: {fileID: 605589458807659070, guid: b14ec3e74bb5a454cb24b9d02bab25c5, type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 605589458807659070, guid: b14ec3e74bb5a454cb24b9d02bab25c5, type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 605589458807659070, guid: b14ec3e74bb5a454cb24b9d02bab25c5, type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.m_NumContinuousActions
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 605589458807659070, guid: b14ec3e74bb5a454cb24b9d02bab25c5, type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5387421841382283056, guid: b14ec3e74bb5a454cb24b9d02bab25c5, type: 3}
       propertyPath: m_Name
       value: SnakeHeadObject
