@@ -10,7 +10,7 @@ using Unity.MLAgents.Sensors.Reflection;
 public class SnakeAI : Agent
 {
     //  [Observable]
-    private CameraSensorComponent cameraSensor;
+  // private CameraSensorComponent cameraSensor;
 
     private SnakeHead head;
     private Snake snake;
@@ -25,11 +25,11 @@ public class SnakeAI : Agent
 
     public void init()
     {
-        cameraSensor = GetComponent<CameraSensorComponent>();
+     //   cameraSensor = GetComponent<CameraSensorComponent>();
         head = GetComponent<SnakeHead>();
         snake = head.snake;
 
-        cameraSensor.Camera = Camera.main;
+     //   cameraSensor.Camera = Camera.main;
 
         grid = snake.getGrid();
 
