@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
@@ -112,18 +113,29 @@ public class Snake : ScriptableObject
 
     public void init(int x, int y, Grid grid)
     {
-      //  snakeHeadpre = Resources.Load<SnakeHead>("SnakeHeadObject");
-        SnakeHead head = GameObject.Find("GameObject.Find")   //Instantiate(snakeHeadpre, new Vector3(x, y, -2), Quaternion.identity);
-        head.transform
+        //  snakeHeadpre = Resources.Load<SnakeHead>("SnakeHeadObject");
+        SnakeHead head = GameObject.Find("SnakeHeadObject").GetComponent<SnakeHead>();  //Instantiate(snakeHeadpre, new Vector3(x, y, -2), Quaternion.identity);
+        head.transform.position = new Vector2(x, y);
         head.direction = SnakePart.Direction.right;
+
         head.grid = grid;
         head.snake = this;
 
         head.init();
         snake.Add(head);
-
-
         this.Grid = grid;
+
+        try
+        {
+            head.createAI();
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Fehler bei ai init !!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+            Debug.Log(e);
+        }
+
+     
 
         move();
     }

@@ -6,6 +6,10 @@ public class SnakeHead : SnakePart
 {
     private SnakeAI AI;
 
+    public void createAI()
+    {
+        AI.init();
+    }
     public override void makeAIDessison()
     {
         if (AI == null)

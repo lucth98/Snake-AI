@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
@@ -19,11 +19,11 @@ public class SnakeAI : Agent
 
     private float lastDistanceToInceaseToken = 0.0f;
 
-    
 
 
 
-    private void init()
+
+    public void init()
     {
         cameraSensor = GetComponent<CameraSensorComponent>();
         head = GetComponent<SnakeHead>();
@@ -31,7 +31,7 @@ public class SnakeAI : Agent
 
         cameraSensor.Camera = Camera.main;
 
-        grid= snake.getGrid();
+        grid = snake.getGrid();
 
         lastDistanceToInceaseToken = calculateDistanz();
     }
@@ -65,11 +65,11 @@ public class SnakeAI : Agent
 
     private void distanceToTokenRewart()
     {
-        
+
 
         float newDistance = calculateDistanz();
 
-        if(newDistance < lastDistanceToInceaseToken)
+        if (newDistance < lastDistanceToInceaseToken)
         {
             AddReward(0.1f);
         }
@@ -84,24 +84,30 @@ public class SnakeAI : Agent
 
     public override void OnEpisodeBegin()
     {
- 
-       // snake.reset();
+
+        // snake.reset();
 
 
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        //Hier wird mit den sensor daten an die AI zu verbeiten geschickt
-      
+        try
+        {
+            //Hier wird mit den sensor daten an die AI zu verbeiten geschickt
 
-        //Anz an Elementen
-        float snakeLenght = (float)snake.getSnakeLenght();
-        sensor.AddObservation(snakeLenght);
 
-        //distanz zum token
-        sensor.AddObservation(lastDistanceToInceaseToken);
-        Debug.Log("Ai Data length= " + snakeLenght + "distance to token= "+lastDistanceToInceaseToken);
+            //Anz an Elementen
+            float snakeLenght = (float)snake.getSnakeLenght();
+            sensor.AddObservation(snakeLenght);
+
+            //distanz zum token
+            sensor.AddObservation(lastDistanceToInceaseToken);
+            Debug.Log("Ai Data length= " + snakeLenght + "distance to token= " + lastDistanceToInceaseToken);
+        }catch (Exception ex)
+        {
+
+        }
 
     }
 
@@ -128,42 +134,49 @@ public class SnakeAI : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        float action = actions.ContinuousActions[0];
-
-        Debug.Log("Con action = " + action);
-        Debug.Log("Current Reward= "+GetCumulativeReward());
-        distanceToTokenRewart();
-
-        if (action < 0.5f && action > -0.5f)
+        try
         {
-            Debug.Log("Fahre gerade aus & value= " + action);
-            return;
-        }
-        else
-        {
-            snake.makeAITurn(action < 0);
+            float action = actions.ContinuousActions[0];
 
-            if(actions.ContinuousActions[0] < 0)
+            Debug.Log("Con action = " + action);
+            Debug.Log("Current Reward= " + GetCumulativeReward());
+            distanceToTokenRewart();
+
+            if (action < 0.5f && action > -0.5f)
             {
-                Debug.Log("drehe rechts & value= " + action);
+                Debug.Log("Fahre gerade aus & value= " + action);
+                return;
             }
             else
             {
-                Debug.Log("drehe links & value= " + action);
+                snake.makeAITurn(action < 0);
+
+                if (actions.ContinuousActions[0] < 0)
+                {
+                    Debug.Log("drehe rechts & value= " + action);
+                }
+                else
+                {
+                    Debug.Log("drehe links & value= " + action);
+                }
             }
+        }
+        catch (Exception e)
+        {
+
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        init();
+        // init();
     }
 
     // Update is called once per frame
     void Update()
     {
-       // RequestDecision();
-        
+        // RequestDecision();
+
     }
 }

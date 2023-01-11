@@ -136,7 +136,7 @@ public class Grid : MonoBehaviour
 
     private void initSnake()
     {
-        snake = new Snake();
+        snake = ScriptableObject.CreateInstance<Snake>();
         snake.init(with / 2, height / 2, this);
 
         //ToDO RandPos
