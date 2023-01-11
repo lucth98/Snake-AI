@@ -138,18 +138,18 @@ public class SnakeAI : Agent
         {
             float movment = actions.DiscreteActions[0];
             Debug.Log("descreteaction= " + movment);
-            if(movment == 1)
+            if(movment == 0)
             {
                 Debug.Log("straigth ahead");
                 return;
             }
-            if(movment == 2)
+            if(movment == 1)
             {
                 Debug.Log("turn left");
                 snake.makeAITurn(false);
 
             }
-            if(movment == 3)
+            if(movment == 2)
             {
                 Debug.Log("turn right");
                 snake.makeAITurn(true);
