@@ -134,6 +134,7 @@ public class SnakeAI : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        distanceToTokenRewart();
         try
         {
             float movment = actions.DiscreteActions[0];
